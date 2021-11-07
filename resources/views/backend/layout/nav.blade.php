@@ -20,6 +20,16 @@
                     <li class="active">
                         <a href="{{route('project_category')}}"> <i class="menu-icon fa fa-table"></i>Project Category </a>
                     </li>
+                    <li class="active">
+                        <a href="{{route('service')}}"> <i class="menu-icon fa fa-table"></i>Service </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{route('education')}}"> <i class="menu-icon fa fa-street-view"></i>Education </a>
+                    </li>
+
+                    <li class="active">
+                        <a href="{{route('experiance')}}"> <i class="menu-icon fa fa-th"></i>Experiance </a>
+                    </li>
 
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">

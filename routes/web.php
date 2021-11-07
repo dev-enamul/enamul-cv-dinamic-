@@ -6,6 +6,8 @@ use App\Http\Controllers\dashboard\dashboardController;
 use App\Http\Controllers\dashboard\aboutController;
 use App\Http\Controllers\dashboard\workCategoryController;
 use App\Http\Controllers\dashboard\serviceController;
+use App\Http\Controllers\dashboard\educationController;
+use App\Http\Controllers\dashboard\experianceController;
  
 
 /*
@@ -50,5 +52,24 @@ Auth::routes();
     Route::put('service/update/{id}',[serviceController::class,'update'])->name('service_update');
     Route::get('service/delete/{id}',[serviceController::class,'destroy']);
     Route::get('service/status/{id}',[serviceController::class,'status']);
+
+   //  Education
+    Route::get('education',[educationController::class,'index'])->name('education');
+    Route::get('education/create',[educationController::class,'create'])->name('education_create');
+    Route::post('education/store',[educationController::class,'store'])->name('education_store');
+    Route::get('education/edit/{id}',[educationController::class,'edit'])->name('education_edit');
+    Route::put('education/update/{id}',[educationController::class,'update'])->name('education_update');
+    Route::get('education/delete/{id}',[educationController::class,'destroy']);
+
+
+
+   //  Experiance
+   Route::get('experiance',[experianceController::class,'index'])->name('experiance');
+   Route::get('experiance/create',[experianceController::class,'create'])->name('experiance_create');
+   Route::post('experiance/store',[experianceController::class,'store'])->name('experiance_store');
+   Route::get('experiance/edit/{id}',[experianceController::class,'edit'])->name('experiance_edit');
+   Route::put('experiance/update/{id}',[experianceController::class,'update'])->name('experiance_update');
+   Route::get('experiance/delete/{id}',[experianceController::class,'destroy']);
+   Route::get('experiance/status/{id}',[experianceController::class,'status']);
  });
 ;
