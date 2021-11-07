@@ -59,6 +59,7 @@ class educationController extends Controller
         $name = $request->school.'.'.$extension;
         $path = 'fontend/images';
         $image->move($path,$name);
+        Image::make($image)->resize(1000,800)->move($path,$name);
         $education->school_logo = $name;
 
         $education->save();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Servece;
+use Image;
 use DB;
 
 class serviceController extends Controller
@@ -57,7 +58,7 @@ class serviceController extends Controller
         $extension = $image->getClientOriginalExtension();
         $image_name = $request->title.'.'.$extension;
         $file_path = 'fontend/images';
-        $image->move($file_path,$image_name);
+        Image::make($image)->resize(1000,800)->move($file_path,$image_name);
 
         $service->image = $image_name;
 
@@ -119,7 +120,7 @@ class serviceController extends Controller
             $image_name = $request->title.'.'.$extension;
             $file_path = 'fontend/images';
             @unlink($file_path.'/'.$service->image);
-            $image->move($file_path,$image_name);
+            Image::make($image)->resize(1000,800)->move($file_path,$image_name);
             $service->image = $image_name;
         }
         $service->save();

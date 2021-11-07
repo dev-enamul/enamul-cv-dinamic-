@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Experiance;
 
 class experianceController extends Controller
 {
@@ -14,7 +15,9 @@ class experianceController extends Controller
      */
     public function index()
     {
-        //
+        $page_name = "Experiance List";
+        $datas = Experiance::all();
+        return view('backend.experiance.list',compact('page_name','datas'));
     }
 
     /**
@@ -24,7 +27,8 @@ class experianceController extends Controller
      */
     public function create()
     {
-        //
+        $page_name = "Experiance Create";
+        return view('backend.experiance.create',compact('page_name'));
     }
 
     /**
@@ -35,7 +39,29 @@ class experianceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'organization'=>'required',
+            'position'=>'required',
+            'duration'=>'required',
+            'description'=>'required',
+            'organization_logo'=>'required'
+        ]);
+        $education = new Experiance;
+        $education->organization= $request->organization;
+        $education->position = $request->position;
+        $education->duration = $request->duration;
+        $education->description = $request->description;
+
+
+        $image = $request->file('organization_logo');
+        $extension = $image->getClientOriginalExtension();
+        $name = $request->organization.'.'.$extension;
+        $path = 'fontend/images';
+        $image->move($path,$name);
+        $education->organization_logo = $name;
+
+        $education->save();
+        return redirect()->route('experiance');
     }
 
     /**
@@ -57,7 +83,9 @@ class experianceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_name = "Experiacne Edit";
+        $data = Experiance::find($id);
+        return view('backend.experiance.edit',compact('data','page_name'));
     }
 
     /**
@@ -69,7 +97,29 @@ class experianceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'organization'=>'required',
+            'position'=>'required',
+            'duration'=>'required',
+            'description'=>'required',
+        ]);
+        $education = Experiance::find($id);
+        $education->organization= $request->organization;
+        $education->position = $request->position;
+        $education->duration = $request->duration;
+        $education->description = $request->description;
+
+
+        if($image = $request->file('organization_logo')){
+            $extension = $image->getClientOriginalExtension();
+            $name = $request->organization.'.'.$extension;
+            $path = 'fontend/images';
+            @unlink($path.'/'.$name);
+            $image->move($path,$name);
+            $education->organization_logo = $name;
+        }
+        $education->save();
+        return redirect()->route('experiance');
     }
 
     /**
@@ -80,6 +130,8 @@ class experianceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $extension = Experiance::find($id);
+        $extension->delete();
+        return redirect()->back();
     }
 }
